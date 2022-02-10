@@ -3,10 +3,11 @@ version: "3.9" # optional since v1.27.0
 services:
   api:
     container_name: transaction_api_container
-    build: ./api
+    build:
+      context: ./api
+      target: dev
     volumes:
       - ./api:/api
     ports:
       - "3001:3001"
     restart: always
-    command: bash -c "npm run up"
