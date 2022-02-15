@@ -5,7 +5,6 @@
     "node": true
   },
   "extends": [
-    "standard",
     "plugin:node/recommended",
     "plugin:prettier/recommended"
   ],
