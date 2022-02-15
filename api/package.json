@@ -32,7 +32,9 @@
     "@": "dist"
   },
   "dependencies": {
+    "knex": "^1.0.3",
     "module-alias": "^2.2.2",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "pg": "^8.7.3"
   }
 }
