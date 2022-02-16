@@ -1,12 +1,8 @@
-import http from "http";
+import "module-alias/register";
+import { setupApolloServer } from "@/main/graphql/apollo-server";
 
-const server = http.createServer((req, res) => {
-  res.writeHead(200, { "Content-Type": "application/json" });
-  res.end(
-    JSON.stringify({
-      data: "Hello World!ss",
-    })
-  );
-});
-
-server.listen(3001, "0.0.0.0");
+setupApolloServer()
+  .listen()
+  .then(({ url }) => {
+    console.log(`🚀  Server ready at ${url}`);
+  });
