@@ -9,4 +9,6 @@ export namespace ListTransactions {
     from: Date;
     to: Date;
   };
+
+  export type Result = Transaction[];
 }
