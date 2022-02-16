@@ -32,7 +32,7 @@ services:
       - ./api:/api
       - cache-node-modules:/api/node_modules
     ports:
-      - "3001:3001"
+      - "4000:4000"
     restart: always
     networks:
       - database
