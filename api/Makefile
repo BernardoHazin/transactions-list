@@ -21,9 +21,15 @@ in_docker:
 up: in_host down
 	@docker-compose up --build -d
 
-down : in_host
+down: in_host
 	@docker-compose down --remove-orphans
 
+generate: in_host
+	@yarn prisma generate --schema=$(PRISMA_SCHEMA_PATH)
+
+# REMINDER: set prisma enviroment before execute:
+# DEV: db-migrate --PRISMA_ENV=dev
+# PROD: db-migrate --PRISMA_ENV=deploy
 db-migrate: CMD = yarn prisma migrate $(PRISMA_ENV) --schema=$(PRISMA_SCHEMA_PATH)
 db-migrate: db-healthcheck exec_db-migrate
 db-healthcheck: in_host
