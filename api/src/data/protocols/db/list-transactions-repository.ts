@@ -1,4 +1,3 @@
-import { ListTransactions } from "@/domain/usecases";
 import { Transaction } from "@/domain/entities";
 
 export interface ListTransactionsRepository {
@@ -9,7 +8,8 @@ export interface ListTransactionsRepository {
 
 export namespace ListTransactionsRepository {
   export type Params = {
-    filters: ListTransactions.Filters;
+    from: Date;
+    to: Date;
   };
 
   export type Result = Transaction[];
