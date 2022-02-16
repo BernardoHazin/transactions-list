@@ -1,6 +1,28 @@
 version: "3.9" # optional since v1.27.0
 
 services:
+  db:
+    container_name: transaction_db_container
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-somepassword}
+      POSTGRES_DB: ${POSTGRES_DB:-dev}
+      PGDATA: /data/postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    volumes:
+       - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - database
+    restart: unless-stopped
+
   api:
     container_name: transaction_api_container
     build:
@@ -8,6 +30,18 @@ services:
       target: dev
     volumes:
       - ./api:/api
+      - cache-node-modules:/api/node_modules
     ports:
       - "3001:3001"
     restart: always
+    networks:
+      - database
+    depends_on:
+      - db
+
+networks:
+  database:
+
+volumes:
+  postgres:
+  cache-node-modules:
