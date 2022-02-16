@@ -2,7 +2,7 @@ import { Controller } from "@/presentation/protocols";
 import { GetTransactionDetails } from "@/domain/usecases";
 import { ok, notFound } from "@/presentation/helpers";
 
-export default class GetTransactionDetailsController implements Controller {
+export class GetTransactionDetailsController implements Controller {
   constructor(private readonly getTransactionDetails: GetTransactionDetails) {}
 
   async handle(body: GetTransactionDetailsController.Body) {

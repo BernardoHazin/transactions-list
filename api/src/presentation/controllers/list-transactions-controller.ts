@@ -2,7 +2,10 @@ import { Controller } from "@/presentation/protocols";
 import { ListTransactions } from "@/domain/usecases";
 import { ok } from "@/presentation/helpers";
 
-export default class ListTransactionsController implements Controller {
+export class ListTransactionsController
+  implements
+    Controller<ListTransactionsController.Body, ListTransactions.Result>
+{
   constructor(private readonly listTransactions: ListTransactions) {}
 
   async handle(body: ListTransactionsController.Body) {
@@ -17,4 +20,6 @@ export namespace ListTransactionsController {
     from: Date;
     to: Date;
   };
+
+  export type Result = ListTransactions.Result;
 }

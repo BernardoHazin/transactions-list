@@ -2,7 +2,7 @@ import { transformTransaction as transform } from "@/infra/db/helpers/prisma";
 import { GetTransactionDetailsRepository } from "@/data/protocols";
 import { PrismaClient } from "@prisma/client";
 
-export default class PrismaGetTransactionDetailsRepository
+export class PrismaGetTransactionDetailsRepository
   implements GetTransactionDetailsRepository
 {
   constructor(private readonly client: PrismaClient) {}
