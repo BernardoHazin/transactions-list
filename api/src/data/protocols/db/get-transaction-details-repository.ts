@@ -1,11 +1,5 @@
-import { Transaction } from "@/domain/entities";
+import { GetTransactionDetails } from "@/domain/usecases";
 
 export interface GetTransactionDetailsRepository {
-  execute: (
-    transactionId: string
-  ) => Promise<GetTransactionDetailsRepository.Result>;
-}
-
-export namespace GetTransactionDetailsRepository {
-  export type Result = Transaction;
+  execute: (transactionId: string) => Promise<GetTransactionDetails.Result>;
 }

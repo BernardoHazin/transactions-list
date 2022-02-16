@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Transaction {
-  id               Int      @id @default(autoincrement())
+  id               String   @id @default(uuid())
   account          String   @db.VarChar(255)
   description      String   @db.VarChar(255)
   category         String   @db.VarChar(255)
