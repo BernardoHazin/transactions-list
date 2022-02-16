@@ -35,6 +35,10 @@
   },
   "dependencies": {
     "@prisma/client": "^3.9.2",
+    "@types/graphql": "^14.5.0",
+    "apollo-server": "^3.6.3",
+    "graphql": "^16.3.0",
+    "graphql-scalars": "^1.14.1",
     "module-alias": "^2.2.2",
     "pg": "^8.7.3",
     "prisma": "^3.9.2"
