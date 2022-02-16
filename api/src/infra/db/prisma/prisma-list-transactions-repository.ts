@@ -1,7 +1,8 @@
+import { transformTransaction as transform } from "@/infra/db/helpers/prisma";
 import { ListTransactionsRepository } from "@/data/protocols/";
 import { PrismaClient } from "@prisma/client";
 
-export default class KnexListTransactionsRepository
+export default class PrismaListTransactionsRepository
   implements ListTransactionsRepository
 {
   constructor(private readonly client: PrismaClient) {}
@@ -16,9 +17,6 @@ export default class KnexListTransactionsRepository
       },
     });
 
-    return transactions.map((transaction) => ({
-      ...transaction,
-      amount: transaction.amount.toNumber(),
-    }));
+    return transactions.map(transform);
   }
 }
