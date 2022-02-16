@@ -1,14 +1,12 @@
-import { Status, Category } from "./";
-
 export interface Transaction {
-  id: string;
+  id: number;
   account: string;
   description: string;
-  category: Category;
+  category: string;
   reference: string;
-  currency: number;
+  currency: string;
   amount: number;
-  status: Status;
+  status: string;
   transactionDate: Date;
   createdAt: Date;
 }
