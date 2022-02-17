@@ -9,7 +9,8 @@
     "dev": "nodemon -L -w",
     "build": "rimraf dist && tsc",
     "build:watch": "rimraf dist && tsc --watch",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "test": "jest"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
@@ -36,12 +37,16 @@
   "dependencies": {
     "@prisma/client": "^3.9.2",
     "@types/graphql": "^14.5.0",
+    "@types/jest": "^27.4.0",
+    "@types/sinon": "^10.0.11",
     "apollo-server": "^3.6.3",
     "fast-csv": "^4.3.6",
     "graphql": "^16.3.0",
     "graphql-scalars": "^1.14.1",
+    "jest": "^27.5.1",
     "module-alias": "^2.2.2",
     "pg": "^8.7.3",
-    "prisma": "^3.9.2"
+    "prisma": "^3.9.2",
+    "sinon": "^13.0.1"
   }
 }
