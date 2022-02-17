@@ -18,15 +18,6 @@ in_host:
 in_docker:
 	@if [ "$(RUNNING_IN_DOCKER)" -eq 1 ]; then echo "[ERROR] Only works in Docker"; exit 1; fi
 
-up: in_host down
-	@docker-compose up --build -d
-
-down: in_host
-	@docker-compose down --remove-orphans
-
-logs: in_host
-	@docker-compose logs -t -f
-
 add: CMD = yarn add $(dependencies)
 add: exec_add
 
