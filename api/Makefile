@@ -24,8 +24,14 @@ up: in_host down
 down: in_host
 	@docker-compose down --remove-orphans
 
-logs : in_host
+logs: in_host
 	@docker-compose logs -t -f
+
+add: CMD = yarn add $(dependencies)
+add: exec_add
+
+remove: CMD = yarn remove $(dependencies)
+remove: exec_add
 
 # Update prisma schema
 generate: in_host
