@@ -30,7 +30,7 @@ services:
       target: dev
     volumes:
       - ./api:/api
-      - cache-node-modules:/api/node_modules
+      - cache-node-modules-api:/api/node_modules
     ports:
       - "4000:4000"
     restart: always
@@ -39,9 +39,27 @@ services:
     depends_on:
       - db
 
+  ui:
+    container_name: transaction_ui_container
+    build:
+      context: ./ui
+      target: dev
+    volumes:
+      - ./ui:/ui
+      - cache-node-modules-ui:/ui/node_modules
+    ports:
+      - "8080:8080"
+    restart: always
+    networks:
+      frontend:
+        aliases:
+          - transactions-ui-local.com
+
 networks:
   database:
+  frontend:
 
 volumes:
   postgres:
-  cache-node-modules:
+  cache-node-modules-api:
+  cache-node-modules-ui:
