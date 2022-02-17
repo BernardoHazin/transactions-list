@@ -1,10 +1,10 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "main": "dist/main",
+  "main": "dist/src/main",
   "license": "MIT",
   "scripts": {
-    "start": "node ./dist/main",
+    "start": "node ./dist/src/main",
     "up": "npm-run-all -p build:watch dev",
     "dev": "nodemon -L -w",
     "build": "rimraf dist && tsc",
