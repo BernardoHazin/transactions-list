@@ -15,7 +15,7 @@ export default gql`
   }
 
   extend type Query {
-    transactions: [Transaction]
-    transaction: Transaction
+    transactions(from: Date, to: Date): [Transaction]
+    transaction(transactionId: ID!): Transaction
   }
 `;
