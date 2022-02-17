@@ -36,5 +36,12 @@ generate: in_host
 # PROD: db-migrate --PRISMA_ENV=deploy
 db-migrate: CMD = yarn prisma migrate $(PRISMA_ENV) --schema=$(PRISMA_SCHEMA_PATH)
 db-migrate: db-healthcheck exec_db-migrate
+
+db-populate: CMD = node ./scripts/populate.js
+db-populate: db-reset exec_db-populate
+
+db-reset: CMD = yarn prisma migrate reset --force --schema=$(PRISMA_SCHEMA_PATH)
+db-reset: db-healthcheck exec_db-drop
+
 db-healthcheck: in_host
 	@timeout 15s bash -c "until docker exec $(DATABASE_CONTAINER_NAME) pg_isready ; do sleep 5 ; done"
