@@ -44,6 +44,8 @@ services:
     build:
       context: ./ui
       target: dev
+    environment: 
+      VUE_APP_API_URL: ${API_URL:-http://localhost:4000/}
     volumes:
       - ./ui:/ui
       - cache-node-modules-ui:/ui/node_modules
