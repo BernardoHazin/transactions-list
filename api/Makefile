@@ -25,8 +25,8 @@ remove: CMD = yarn remove $(dependencies)
 remove: exec_add
 
 # Update prisma schema
-generate: in_host
-	@yarn prisma generate --schema=$(PRISMA_SCHEMA_PATH)
+prisma-generate: CMD = yarn prisma generate --schema=$(PRISMA_SCHEMA_PATH)
+prisma-generate: exec_prisma-generate
 
 # REMINDER: set prisma enviroment before execute:
 # DEV: db-migrate --PRISMA_ENV=dev
