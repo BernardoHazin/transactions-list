@@ -2,7 +2,7 @@ import { Transaction } from "@/domain/entities";
 
 export const makeTransactionMock = (
   attributes?: Partial<Transaction>
-): Transaction => {
+): Transaction & { updatedAt: Date } => {
   return {
     id: "1",
     account: "account",
@@ -14,6 +14,7 @@ export const makeTransactionMock = (
     status: "BOOKED",
     transactionDate: new Date(),
     createdAt: new Date(),
+    updatedAt: new Date(),
     ...(attributes || {}),
   };
 };
