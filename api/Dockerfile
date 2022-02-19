@@ -6,7 +6,6 @@ RUN yarn prisma generate --schema=./src/main/prisma/schema.prisma
 
 FROM base_build AS dev
 ENV NODE_ENV=development
-ENV DATABASE_URL=postgresql://postgres:somepassword@db:5432/dev
 CMD ["yarn", "up"]
 
 FROM base_build AS prod

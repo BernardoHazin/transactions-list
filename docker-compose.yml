@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-somepassword}
-      POSTGRES_DB: ${POSTGRES_DB:-dev}
+      POSTGRES_MULTIPLE_DATABASES: ${POSTGRES_DB:-dev},test
       PGDATA: /data/postgres
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
@@ -16,7 +16,8 @@ services:
       retries: 5
       start_period: 10s
     volumes:
-       - postgres:/data/postgres
+      - postgres:/data/postgres
+      - ./scripts/pg:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
     networks:
@@ -28,6 +29,8 @@ services:
     build:
       context: ./api
       target: dev
+    environment:
+      DATABASE_URL: postgresql://postgres:somepassword@db:5432/dev
     volumes:
       - ./api:/api
       # Comment line below for host mapping of node_modules
