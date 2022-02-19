@@ -4,7 +4,7 @@ export RUNNING_IN_DOCKER = $(shell if [ -f /proc/1/cgroup ]; then grep docker /p
 in_host:
 	@if [ "$(RUNNING_IN_DOCKER)" -eq 0 ]; then echo "[ERROR] Does not work in Docker"; exit 1; fi
 
-up: in_host down build
+up: in_host down
 	@docker-compose up -d
 
 build: in_host
