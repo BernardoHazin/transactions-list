@@ -18,4 +18,6 @@ export default {
     "@/tests/(.*)": "<rootDir>/tests/$1",
     "@/(.*)": "<rootDir>/src/$1",
   },
+  globalSetup: "<rootDir>/tests/setup/setup.ts",
+  globalTeardown: "<rootDir>/tests/setup/teardown.ts",
 };
