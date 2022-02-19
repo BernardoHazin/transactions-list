@@ -1,10 +1,11 @@
 import { Transaction } from "@/domain/entities";
+import { v4 as uuidv4 } from "uuid";
 
 export const makeTransactionMock = (
   attributes?: Partial<Transaction>
 ): Transaction & { updatedAt: Date } => {
   return {
-    id: "1",
+    id: uuidv4(),
     account: "account",
     description: "some description",
     category: "some category",
