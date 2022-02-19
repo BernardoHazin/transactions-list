@@ -6,7 +6,7 @@ export class DbListTransactions implements ListTransactions {
     private readonly listTransactionsRepository: ListTransactionsRepository
   ) {}
 
-  async handle({ from, to }: ListTransactions.Params) {
-    return this.listTransactionsRepository.execute({ from, to });
+  async handle(params?: ListTransactions.Params) {
+    return this.listTransactionsRepository.execute(params);
   }
 }

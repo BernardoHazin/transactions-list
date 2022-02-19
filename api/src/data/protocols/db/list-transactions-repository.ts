@@ -2,7 +2,7 @@ import { Transaction } from "@/domain/entities";
 
 export interface ListTransactionsRepository {
   execute: (
-    params: ListTransactionsRepository.Params
+    params?: ListTransactionsRepository.Params
   ) => Promise<ListTransactionsRepository.Result>;
 }
 

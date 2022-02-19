@@ -7,12 +7,12 @@ export class PrismaListTransactionsRepository
 {
   constructor(private readonly client: PrismaClient) {}
 
-  async execute({ from, to }: ListTransactionsRepository.Params) {
+  async execute(params?: ListTransactionsRepository.Params) {
     const transactions = await this.client.transaction.findMany({
       where: {
         transactionDate: {
-          gte: from,
-          lt: to,
+          gte: params?.from,
+          lt: params?.to,
         },
       },
     });

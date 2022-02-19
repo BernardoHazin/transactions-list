@@ -1,7 +1,7 @@
 import { Transaction } from "@/domain/entities";
 
 export interface ListTransactions {
-  handle: (params: ListTransactions.Params) => Promise<Transaction[]>;
+  handle: (params?: ListTransactions.Params) => Promise<Transaction[]>;
 }
 
 export namespace ListTransactions {
