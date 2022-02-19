@@ -5,6 +5,8 @@ EXEC := docker-compose exec api
 RUN := docker-compose run --rm api
 PRISMA_SCHEMA_PATH := ./src/main/prisma/schema.prisma
 DATABASE_CONTAINER_NAME := transaction_db_container
+PRISMA_ENV := dev
+RUN_TEST_DOCKER_ENV := docker-compose -f ../docker-compose.yml -f ../docker-compose.test.yml run --rm api
 
 exec_%:
 ifeq ($(RUNNING_IN_DOCKER),0)
@@ -39,7 +41,8 @@ remove: CMD = yarn remove ${COMMAND_ARGS}
 remove: run_remove
 
 test: CMD = yarn test ${COMMAND_ARGS}
-test: run_test
+test: in_host
+	$(RUN_TEST_DOCKER_ENV) $(CMD)
 
 # Update prisma schema
 prisma-generate: CMD = yarn prisma generate --schema=$(PRISMA_SCHEMA_PATH)
