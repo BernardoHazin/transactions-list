@@ -30,6 +30,7 @@ services:
       target: dev
     volumes:
       - ./api:/api
+      # Comment line below for host mapping of node_modules
       - cache-node-modules-api:/api/node_modules
     ports:
       - "4000:4000"
@@ -48,6 +49,7 @@ services:
       VUE_APP_API_URL: ${API_URL:-http://localhost:4000/}
     volumes:
       - ./ui:/ui
+      # Comment line below for host mapping of node_modules
       - cache-node-modules-ui:/ui/node_modules
     ports:
       - "8080:8080"
