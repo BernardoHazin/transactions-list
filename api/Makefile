@@ -2,6 +2,7 @@
 export RUNNING_IN_DOCKER = $(shell if [ -f /proc/1/cgroup ]; then grep docker /proc/1/cgroup -qa; echo $$?; else echo 1; fi)
 
 EXEC := docker-compose exec api
+RUN := docker-compose run --rm api
 PRISMA_SCHEMA_PATH := ./src/main/prisma/schema.prisma
 DATABASE_CONTAINER_NAME := transaction_db_container
 
@@ -12,17 +13,33 @@ else
 	$(EXEC) $(CMD)
 endif
 
+run_%: in_host
+	$(RUN) $(CMD)
+
 .PHONY: in_host in_docker
 in_host:
 	@if [ "$(RUNNING_IN_DOCKER)" -eq 0 ]; then echo "[ERROR] Does not work in Docker"; exit 1; fi
 in_docker:
 	@if [ "$(RUNNING_IN_DOCKER)" -eq 1 ]; then echo "[ERROR] Only works in Docker"; exit 1; fi
 
-add: CMD = yarn add $(dependencies)
-add: exec_add
+# If the first argument is one of the supported commands...
+SUPPORTED_COMMANDS := add remove
+ifneq ($(findstring $(firstword $(MAKECMDGOALS)), $(SUPPORTED_COMMANDS)),)
+  # use the rest as arguments for the command
+  COMMAND_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
-remove: CMD = yarn remove $(dependencies)
-remove: exec_add
+  # ...and turn them into do-nothing targets
+  $(eval $(COMMAND_ARGS):;@:)
+endif
+
+add: CMD = yarn add ${COMMAND_ARGS}
+add: run_add
+
+remove: CMD = yarn remove ${COMMAND_ARGS}
+remove: run_remove
+
+test: CMD = yarn test ${COMMAND_ARGS}
+test: run_test
 
 # Update prisma schema
 prisma-generate: CMD = yarn prisma generate --schema=$(PRISMA_SCHEMA_PATH)
