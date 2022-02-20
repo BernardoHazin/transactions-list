@@ -50,6 +50,7 @@ describe("Main | GraphQL | List transactions", () => {
 
   beforeAll(async () => {
     ({ server, url } = await setupApolloServer().listen({ port: 0 }));
+    await prisma.transaction.deleteMany({});
     await prisma.transaction.createMany({
       data: transactions,
     });
