@@ -39,7 +39,7 @@ Before start using the application, create projects migrations and populate it w
 Make sure that the `api` and `db` containers are up and running and the run the following command
 
 ```bash
-make db-migrations
+make db-migrate
 ```
 
 ### populate
