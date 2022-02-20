@@ -4,6 +4,12 @@ const Pool = require("pg").Pool;
 const fastcsv = require("fast-csv");
 const path = require("path");
 
+if (!process.env.DATABASE_URL) {
+  throw new Error(
+    "[ERROR] You need provide DATABASE_URL to populate database, please set it into a .env file."
+  );
+}
+
 let stream = fs.createReadStream(
   path.resolve(__dirname, "../Transactions.csv")
 );

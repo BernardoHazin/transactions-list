@@ -94,6 +94,7 @@ make db-populate
 ##### Local
 
 ```bash
+# make sure to provide DATABASE_URL through .env file
 node ./scripts/populate.js
 ```
 
