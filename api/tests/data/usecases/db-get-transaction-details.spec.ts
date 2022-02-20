@@ -9,7 +9,7 @@ const createUsecase = () => {
 };
 
 describe("Data | Usecases | Get transaction details", () => {
-  afterEach(() => {
+  beforeEach(() => {
     sinon.restore();
   });
 

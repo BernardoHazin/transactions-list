@@ -22,10 +22,7 @@ describe("Infra | DB | Prisma | Get transaction details repository", function ()
   });
 
   afterAll(async () => {
-    const deleteTransactions = prisma.transaction.deleteMany();
-
-    await prisma.$transaction([deleteTransactions]);
-
+    await prisma.transaction.deleteMany({});
     await prisma.$disconnect();
   });
 
@@ -37,7 +34,7 @@ describe("Infra | DB | Prisma | Get transaction details repository", function ()
   });
 
   test("Should return null if transaction does not exists", async () => {
-    const nonExistentId = "6";
+    const nonExistentId = "non-existent-id";
     const result = await repository.execute(nonExistentId);
 
     expect(result).toBeNull();
