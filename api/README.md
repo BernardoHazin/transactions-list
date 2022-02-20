@@ -30,24 +30,71 @@ Responsible for transform application data to external world, receives and execu
 
 Is the composition layer, witch create instances from other layers and it's dependencies and initializes the application
 
+## Project Setup
+
+#### local
+
+install dependencies
+
+```bash
+yarn install
+```
+
+Generate prisma schema, make sure to provide a `.env` file containing the `DATABASE_URL` enviroment varible
+
+```bash
+yarn prisma generate --schema=./src/main/prisma/schema.prisma
+```
+
+Run application
+
+```bash
+yarn up # for automatic reload with nodemon
+```
+
+or
+
+```bash
+yarn start
+```
+
 ## Database Setup
 
 Before start using the application, create projects migrations and populate it with transactions data.
 
 ### run migrations
 
-Make sure that the `api` and `db` containers are up and running and the run the following command
+##### Docker
 
 ```bash
 make db-migrate
+```
+
+##### Local
+
+```bash
+yarn prisma migrate dev --schema=./src/main/prisma/schema.prisma
+```
+or run with `deploy` for production
+
+```bash
+yarn prisma migrate deploy --schema=./src/main/prisma/schema.prisma
 ```
 
 ### populate
 
 After running migrations populate database
 
+##### Docker
+
 ```bash
 make db-populate
+```
+
+##### Local
+
+```bash
+node ./scripts/populate.js
 ```
 
 ## Testing
