@@ -56,18 +56,20 @@ describe("Main | GraphQL | List transactions", () => {
   });
 
   afterAll(async () => {
-    await server?.close();
     await prisma.transaction.deleteMany({});
+    await server?.close();
   });
 
   it("Should return a list of transactions", async () => {
     const response = await request(url).post("/").send(query);
-    const expectResponse = transactions
-      .map((transaction) => ({
-        id: transaction.id,
-        amount: transaction.amount,
-      }))
-      .sort((a, b) => a.amount - b.amount);
+    const expectResponse = transactions.map((transaction) => ({
+      id: transaction.id,
+      amount: transaction.amount,
+    }));
+
+    response.body.data.transactions.sort(
+      (a: Transaction, b: Transaction) => a.amount - b.amount
+    );
 
     expect(response.body.data.transactions).toStrictEqual(expectResponse);
   });
@@ -78,13 +80,14 @@ describe("Main | GraphQL | List transactions", () => {
       .post("/")
       .send(queryWithFilters(from, to));
 
-    const expectResponse = transactions
-      .slice(0, 2)
-      .map((transaction) => ({
-        id: transaction.id,
-        amount: transaction.amount,
-      }))
-      .sort((a, b) => a.amount - b.amount);
+    const expectResponse = transactions.slice(0, 2).map((transaction) => ({
+      id: transaction.id,
+      amount: transaction.amount,
+    }));
+
+    response.body.data.transactions.sort(
+      (a: Transaction, b: Transaction) => a.amount - b.amount
+    );
 
     expect(response.body.data.transactions).toStrictEqual(expectResponse);
   });
