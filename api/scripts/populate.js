@@ -1,3 +1,4 @@
+require("dotenv").config();
 const fs = require("fs");
 const Pool = require("pg").Pool;
 const fastcsv = require("fast-csv");
