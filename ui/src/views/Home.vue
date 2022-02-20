@@ -1,5 +1,15 @@
 <template>
   <div class="home">
+    <form id="filters" @submit.prevent="() => refetch({ from, to })">
+      <label>
+        Start date
+        <input v-model="from" name="start-date" type="date" />
+      </label>
+      <label>
+        End date
+        <input v-model="to" name="end-date" type="date" />
+      </label>
+    </form>
     <div v-if="loading">
       Loading...
     </div>
@@ -46,29 +56,42 @@
 <script lang="ts">
 import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
-import { Ref } from 'vue'
+import { ref, Ref } from 'vue'
+import { ApolloQueryResult } from '@apollo/client/core'
 import Transaction from '@/types/transaction'
 
-export default {
-  setup (): { result: Ref<Transaction[]>, loading: Ref<boolean> } {
-    const { result, loading } = useQuery(gql`
-      query getUsers {
-        transactions {
-          id
-          account
-          reference
-          category
-          description
-          currency
-          amount
-          status
-          transactionDate
-          createdAt
-        }
+const fetchTransactions = (from: Ref<Date | undefined>, to: Ref<Date | undefined>) => {
+  return useQuery(gql`
+    query getTransactions($to: Date, $from: Date) {
+      transactions(to: $to, from: $from) {
+        id
+        account
+        reference
+        category
+        description
+        currency
+        amount
+        status
+        transactionDate
+        createdAt
       }
-    `)
+    }
+  `, { from, to })
+}
 
-    return { result, loading }
+export default {
+  setup (): {
+    result: Ref<Transaction[]>,
+    loading: Ref<boolean>,
+    refetch: any,
+    from: Ref<Date | undefined>,
+    to: Ref<Date | undefined>
+    } {
+    const from = ref<Date>()
+    const to = ref<Date>()
+    const { result, loading, refetch } = fetchTransactions(from, to)
+
+    return { result, loading, from, to, refetch }
   }
 }
 </script>
