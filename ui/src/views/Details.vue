@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <div v-if="loading">
+  <div class="details">
+    <div class="loading" v-if="loading">
       Loading...
     </div>
     <div v-else>
@@ -54,31 +54,16 @@
 </template>
 
 <script lang="ts">
-import { useQuery } from '@vue/apollo-composable'
-import gql from 'graphql-tag'
-import { Ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { Ref, ref } from 'vue'
 import Transaction from '@/types/transaction'
+import { queryDetails } from '@/graphQL/queries'
 
 export default {
   setup (): { result: Ref<Transaction>, loading: Ref<boolean> } {
     const { id } = useRoute().params
-    const { result, loading } = useQuery(gql`
-      query Query($transactionId: ID!) {
-        transaction(transactionId: $transactionId) {
-          id
-          account
-          description
-          category
-          reference
-          currency
-          amount
-          status
-          transactionDate
-          createdAt
-        }
-      }
-    `, { transactionId: id })
+    const transactionId = ref(id)
+    const { result, loading } = queryDetails(transactionId)
 
     return { result, loading }
   }

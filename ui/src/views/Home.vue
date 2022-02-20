@@ -10,7 +10,7 @@
         <input v-model="to" name="end-date" type="date" />
       </label>
     </form>
-    <div v-if="loading">
+    <div class="loading" v-if="loading">
       Loading...
     </div>
     <div v-else>
@@ -54,30 +54,9 @@
 </template>
 
 <script lang="ts">
-import { useQuery } from '@vue/apollo-composable'
-import gql from 'graphql-tag'
 import { ref, Ref } from 'vue'
-import { ApolloQueryResult } from '@apollo/client/core'
+import { queryList } from '@/graphQL/queries'
 import Transaction from '@/types/transaction'
-
-const fetchTransactions = (from: Ref<Date | undefined>, to: Ref<Date | undefined>) => {
-  return useQuery(gql`
-    query getTransactions($to: Date, $from: Date) {
-      transactions(to: $to, from: $from) {
-        id
-        account
-        reference
-        category
-        description
-        currency
-        amount
-        status
-        transactionDate
-        createdAt
-      }
-    }
-  `, { from, to })
-}
 
 export default {
   setup (): {
@@ -89,7 +68,8 @@ export default {
     } {
     const from = ref<Date>()
     const to = ref<Date>()
-    const { result, loading, refetch } = fetchTransactions(from, to)
+
+    const { result, loading, refetch } = queryList(from, to)
 
     return { result, loading, from, to, refetch }
   }
