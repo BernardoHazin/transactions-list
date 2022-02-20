@@ -1,4 +1,6 @@
-# ui
+# UI
+
+A Vue.js app to list transactions
 
 ## Project setup
 ```
